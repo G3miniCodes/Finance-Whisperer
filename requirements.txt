@@ -118,7 +118,7 @@ pytesseract==0.3.13
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.0
 python-magic==0.4.27
-python-magic-bin==
+python-magic-bin
 pytz==2024.2
 pywin32==306
 PyYAML==6.0.2
