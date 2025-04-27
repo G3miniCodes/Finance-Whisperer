@@ -87,7 +87,7 @@ multitasking==0.0.11
 mypy-extensions==1.0.0
 namex==0.0.8
 nest-asyncio==1.6.0
-networkx==3.4.2
+networkx
 nltk==3.9.1
 numexpr==2.10.2
 numpy==1.26.4
@@ -117,10 +117,7 @@ Pympler==1.1
 pytesseract==0.3.13
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.0
-python-magic==0.4.27
-python-magic-bin
 pytz==2024.2
-pywin32==306
 PyYAML==6.0.2
 pyzmq==26.2.0
 referencing==0.36.2
@@ -131,7 +128,7 @@ rich==13.8.1
 rpds-py==0.23.1
 safetensors==0.5.2
 scikit-learn==1.6.1
-scipy==1.15.2
+scipy
 sentence-transformers==3.4.1
 six==1.16.0
 smmap==5.0.2
@@ -146,9 +143,6 @@ tenacity==8.5.0
 tensorboard==2.18.0
 tensorboard-data-server==0.7.2
 tensorflow==2.18.0
-tensorflow-io-gcs-filesystem==0.31.0
-tensorflow_intel==2.18.0
-termcolor==2.4.0
 tf_keras==2.18.0
 threadpoolctl==3.5.0
 tiktoken==0.4.0
