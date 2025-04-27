@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Signup</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/login.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/home_logoo.png') }}" alt="Logo" class="logo-img"> 
+            Finance Whisperer
+        </div>
+        <ul class="nav-links">
+            <li><a href="/" class="btn-nav">Home</a></li>
+            <li><a href="/rec" class="btn-nav">For You</a></li>
+            <li><a href="/entry" class="btn-nav">Entry</a></li>
+            <li><a href="/analysis" class="btn-nav">Analysis</a></li>
+    
+            <!-- Dropdown for Account -->
+            <li class="dropdown">
+                <a href="#" class="btn-nav">Account</a>
+                <ul class="dropdown-content">
+                    <li><a href="/signin" class="dropdown-link">Sign In</a></li>
+                    <li><a href="/signup" class="dropdown-link">Sign Up</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div class="container" id="container">
+        <!-- Sign Up Form -->
+
+        <!-- Sign In Form -->
+        <div class="form-container sign-in-container">
+            <form action="/signin" method="POST"> <!-- Specify form action and method -->
+                <h1>Sign In To Finance Whisperer</h1>
+                <div class="social-container">
+                    <a href="https://www.facebook.com" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.google.com" class="social"><i class="fab fa-google"></i></a>
+                    <a href="https://www.linkedin.com" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your account</span>
+                <input name="email" type="email" placeholder="Email" required/>
+                <input name="pass" type="password" placeholder="Password" required/>
+        
+                <div class="forgot-password-container">
+                    <a href="#" class="forgot-password">Forgot your password?</a>
+                </div>
+        
+                <button name="action" value="signin">Sign In</button> <!-- Change 'acti' to 'action' -->
+            </form>    
+        </div>
+        
+
+        <div class = sign-up-container>
+            <div class = image-wrapper>
+                <img src="{{ url_for('static', filename='img/login_logo.png') }}" class = imag>
+            </div>
+        </div>
+
+        <!-- Overlay Section -->
+        <!-- <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome Back Buddy!!</h1>
+                    <p>To keep connected with us please login with your personal info</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+            </div>
+        </div> -->
+
+</body>
+</html>

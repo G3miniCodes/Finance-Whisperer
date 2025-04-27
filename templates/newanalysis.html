@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Whisperer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/analysis.css') }}">
+    <script src="{{ url_for('static', filename='js/newanalysis.js') }}"></script>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/analysis_logo.png') }}" alt="Logo" class="logo-img">
+            Finance Whisperer
+        </div>
+        <ul class="nav-links">
+            <li><a href="/" class="btn-nav">Home</a></li>
+            <li><a href="/rec" class="btn-nav">For You</a></li>
+            <li><a href="/analysis" class="btn-nav">Analysis</a></li>
+            {% if session.get('username') %}
+                <li><a href="/logout" class="btn-nav">Logout ({{ session.get('username') }})</a></li>
+            {% else %}
+                <li><a href="/signin" class="btn-nav">Login</a></li>
+            {% endif %}
+
+            </li>
+        </ul>
+    </nav>
+
+    <!-- First Strip with Two Buttons -->
+    <div class="strip">
+        <button id="manualEntryBtn">Manual Entry</button>
+        <button id="pictorialEntryBtn">Pictorial Entry</button>
+    </div>
+
+    <!-- Manual Entry Form (Hidden by Default) -->
+    <div id="manualEntryForm" class="popup">
+        <h3>Manual Entry</h3>
+        <label>Amount: <input type="number" id="amount"></label>
+        <label>Category: <input type="text" id="category"></label>
+        <label>Date: <input type="date" id="date"></label>
+        <button onclick="submitForm()">Submit</button>
+        <button onclick="closeForm('manualEntryForm')">Back</button>
+    </div>
+
+    <!-- Pictorial Entry Form (Hidden by Default) -->
+    <div id="pictorialEntryForm" class="popup">
+        <h3>Pictorial Entry</h3>
+        <input type="file" id="uploadImage">
+        <button onclick="processImage()">Confirm</button>
+        <button onclick="closeForm('pictorialEntryForm')">Back</button>
+    </div>
+
+    <!-- OCR Autofilled Form (Hidden by Default) -->
+    <div id="ocrForm" class="popup">
+        <h3>Edit Your Data</h3>
+        <label>Amount: <input type="number" id="ocrAmount"><button>Edit</button></label>
+        <label>Category: <input type="text" id="ocrCategory"><button>Edit</button></label>
+        <label>Date: <input type="date" id="ocrDate"><button>Edit</button></label>
+        <button onclick="submitForm()">Submit</button>
+        <button onclick="closeForm('ocrForm')">Back</button>
+    </div>
+
+    <!-- Second Strip with 4 Boxes -->
+    <div class="info-strip">
+        <div class="info-box">
+            <h3>Total Income</h3>
+            <p id="totalIncome">Rs. 20000</p>
+            <button>Edit</button>
+        </div>
+        <div class="info-box">
+            <h3>Total Expenses</h3>
+            <p id="totalExpenses">Rs. 5000</p>
+        </div>
+        <div class="info-box">
+            <h3>Amount Left</h3>
+            <p id="amountLeft">Rs. 15000</p>
+        </div>
+        <div class="info-box">
+            <h3>Recent Transactions</h3>
+            <button>Download</button>
+        </div>
+    </div>
+
+    <!-- Third Strip with Large Analysis Boxes -->
+    <div class="chart-container">
+        <div class="chart-box">Chart 1</div>
+        <div class="chart-box">Chart 2</div>
+        <div class="chart-box">Chart 3</div>
+    </div>
+
+    <!-- <script src="script.js"></script> -->
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Upload with OCR</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/pict.css') }}">
+</head>
+<body>
+    <div class="container">
+        <button id="uploadBtn">Upload Image</button>
+
+        <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="image" accept="image/*" required>
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if result %}
+        <div id="resultForm">
+            <h2>Extracted Information</h2>
+            <p><strong>Amount:</strong> {{ result.Amount }}</p>
+            <p><strong>Date:</strong> {{ result.Date }}</p>
+            <p><strong>Category:</strong> {{ result.Category }}</p>
+            <form action="/" method="GET">
+                <button type="submit">Back</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/pict.js') }}"></script>
+</body>
+</html>

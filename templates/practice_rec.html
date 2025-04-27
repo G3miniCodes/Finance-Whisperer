@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Recommended Articles</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/prac_rec.css') }}">
+</head>
+<body>
+  <div class="container">
+    {% for rec in recommendations %}
+      <div class="box">
+        <h2>{{ rec.title }}</h2>
+        <p>{{ rec.text }}</p>
+        <a href="{{ rec.link }}" class="btn" target="_blank">Visit</a>
+      </div>
+    {% endfor %}
+  </div>
+</body>
+</html>

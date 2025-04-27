@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Whisperer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/analysis.css') }}">
+    <script src="{{ url_for('static', filename='js/analysis.js') }}"></script>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/analysis_logo.png') }}" alt="Logo" class="logo-img">
+            Finance Whisperer
+        </div>
+        <ul class="nav-links">
+            <li><a href="/" class="btn-nav">Home</a></li>
+            <li><a href="/rec" class="btn-nav">For You</a></li>
+            <li><a href="/analysis" class="btn-nav">Analysis</a></li>
+            {% if session.get('username') %}
+                <li><a href="/logout" class="btn-nav">Logout ({{ session.get('username') }})</a></li>
+            {% else %}
+                <li><a href="/signin" class="btn-nav">Login</a></li>
+            {% endif %}
+
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Welcome Section -->
+    <header class="welcome-section">
+        <h1 class="left-text">Hey mate! Let's add your expenses</h1>
+        <div class="button-container">
+            <button class="round-btn blue-btn" id="manual-entry">
+                Manual Entry
+                <img src="{{ url_for('static', filename='img/manual.png') }}" alt="Manual Entry Icon" class="btn-icon">
+            </button>
+
+            <button class="round-btn orange-btn" id="pictorial-entry">
+                Pictorial Entry
+                <img src="{{ url_for('static', filename='img/camera.png') }}" alt="Pictorial Entry Icon" class="btn-icon">
+            </button>
+        </div>
+    </header>
+
+    <!-- Manual Entry Form Modal -->
+    <!-- Manual Entry Form Modal -->
+    <div id="manual-entry-form" class="modal">
+        <form action="/add_expense" method="POST">
+            <h2>Enter Expense Details</h2>
+            
+            <label for="amount">Amount Spent:</label>
+            <input type="number" id="amount" name="amount" placeholder="Enter amount" required>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="category">Category:</label>
+            <select id="category" name="category" required>
+                <option value="Shopping">Shopping</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="food">Food</option>
+                <option value="Travel">Travel</option>
+                <option value="Miscellaneous">Miscellaneous</option>
+                <option value="Monthly bills">Monthly bills</option>
+            </select>
+
+            <div class="form-buttons">
+                <button type="submit" id="manual-add-expense" class="green-btn">Add</button>
+                <button type="button" class="back-button" onclick="closeModal('manual-entry-form')">Back</button>
+            </div>
+        </form>
+    </div>
+
+
+    <!-- Pictorial Entry Form Modal -->
+    <div id="pictorial-entry-form" class="modal">
+        <h2>Upload Receipt Image</h2>
+        <form id="ocr-form" action="/run-ocr" method="POST" enctype="multipart/form-data">
+            <input type="file" name="image" id="upload-photo" accept="image/*" required>
+            <div class="form-buttons">
+                <button type="submit" class="orange-btn">Extract Text</button>
+                <button type="button" class="back-button" onclick="closeModal('pictorial-entry-form')">Back</button>
+            </div>
+        </form>
+    </div>
+    
+
+{% if result %}
+<div id="text-form-section" class="modal" style="display: none;">
+    <form action="/add_expense" method="POST">
+    <h2>Extracted Details</h2>
+    <div class="form-group">
+        <label for="field1">Amount</label>
+        <input type="number" id="field1" name="amount" value="{{ result.Amount }}">
+    </div>
+    <div class="form-group">
+        <label for="field2">Date</label>
+        <input type="date" id="field2" name="date" value="{{ result.Date }}">
+    </div>
+    <div class="form-group">
+        <label for="field3">Category</label>
+        <input type="text" id="field3" name="category" value="{{ result.Category }}">
+    </div>
+    <div class="form-buttons">
+        <button type="submit" id="pict-add-expense" class="green-btn">Submit</button>
+        <button class="back-button" onclick="closeModal('text-form-section')">Back</button>
+    </div>
+</form>
+</div>
+
+{% endif %}
+
+
+    <!-- Main Content -->
+    <main>
+       <!-- Summary Section -->
+       <section class="summary">
+        <div class="box">
+            <h2>Total Income 
+                <span class="edit-icon" id="edit-income">
+                    <img src="{{ url_for('static', filename='img/edit.png') }}" alt="Edit">
+                </span>
+            </h2>
+            <p id="total-income">Rs.{{ total_income }}</p>
+            <input type="number" id="income-input" class="income-input" placeholder="Enter amount" />
+        </div>
+        <div class="box">
+            <h2>Total Expenses</h2>
+            <p id="total-expenses">Rs.{{ total_expense }}</p>
+        </div>
+        <div class="box">
+            <h2>Amount Left</h2>
+            <p id="amount-left">Rs.{{ amount_left }}</p>
+        </div>
+        <div class="box">
+            <h2>Transactions</h2>
+            <button class="back-button" id="amount-left" onclick="window.location.href='/download';">
+                Download
+            </button>            
+        </div>
+    </section>
+    
+
+        <!-- Recent Transactions Section -->
+        <!-- <section class="recent-transactions">
+            <h2>Recent Transactions</h2>
+            <div class="transactions-container">
+                <table class="transactions-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Uploaded Via</th>
+                            <th>Amount Spent</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transaction-list">
+                        <tr>
+                            <td>1</td>
+                            <td>2025-03-06</td>
+                            <td>Groceries</td>
+                            <td>Manual</td>
+                            <td>$50.00</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>2025-03-05</td>
+                            <td>Entertainment</td>
+                            <td>Pictorial</td>
+                            <td>$30.00</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>2025-03-04</td>
+                            <td>Food</td>
+                            <td>Manual</td>
+                            <td>$20.00</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>2025-03-03</td>
+                            <td>Shopping</td>
+                            <td>Pictorial</td>
+                            <td>$100.00</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>2025-03-02</td>
+                            <td>Transport</td>
+                            <td>Manual</td>
+                            <td>$15.00</td>
+                        </tr> -->
+                    <!-- </tbody>
+                </table>
+                <button id="more-transactions" class="more-btn">More</button>
+            </div>
+        </section> --> 
+
+        <!-- Analysis Graphs Section -->
+        <section class="analysis-graphs">
+            <h2>Analysis Graphs</h2>
+            <div class="graphs-container">
+                <div class="graph-card">
+                    <canvas id="pieChart"></canvas>
+                </div>
+                <div class="graph-card">
+                    <canvas id="lineChart"></canvas>
+                </div>
+                <div class="graph-card">
+                    <canvas id="polarChart"></canvas>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Include Chart.js -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="{{ url_for('static', filename='js/analysis.js') }}"></script>
+        
+
+        
+    </main>
+    
+    <!-- <script src="script.js"></script> -->
+</body>
+</html>

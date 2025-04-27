@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finance Tracking Recommendations</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/rec.css') }}">
+  <script src="{{ url_for('static', filename='js/rec.js') }}" defer></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="{{ url_for('static', filename='img/rec_logoo.png') }}" alt="Logo" class="logo-img"> 
+      Finance Whisperer
+    </div>
+    <ul class="nav-links">
+      <li><a href="/" class="btn-nav">Home</a></li>
+            <li><a href="/rec" class="btn-nav">For You</a></li>
+            <li><a href="/analysis" class="btn-nav">Analysis</a></li>
+            {% if session.get('username') %}
+                <li><a href="/logout" class="btn-nav">Logout ({{ session.get('username') }})</a></li>
+            {% else %}
+                <li><a href="/signin" class="btn-nav">Login</a></li>
+            {% endif %}
+    </ul>
+  </nav>
+
+  <div class="background">
+    <div class="overlay"></div>
+
+    <div class="blur-box">
+      <h2>Recommendations for you💸</h2>
+      <p>Explore effective ways to manage your finances, track expenses, save smartly, and make informed investment decisions. Check out the blogs and videos below for detailed insights.</p>
+    </div>
+
+    <!-- Carousel Container -->
+    <div class="carousel-container">
+      <button class="arrow left" id="left-arrow">&#9664;</button>
+      <div class="carousel">
+        {% for rec in recommendations %}
+          <div class="card">
+            <!-- <img src="{{ rec.image if rec.image else url_for('static', filename='img/rec_blog1.jpg') }}" alt="{{ rec.title }}"> -->
+            <h3>{{ rec.title if rec.title else "No title" }}</h3>
+            <p>{{ rec.text if rec.text else "No description available" }}</p>
+            <a href="{{ rec.link }}" class="btn" target="_blank">Know More</a>
+          </div>
+        {% endfor %}
+        <!-- <div class="card">  -->
+          <!-- <img src="{{ url_for('static', filename='img/rec_blog1.jpg') }}" alt="imagess"> -->
+          <!-- <h3>Best Ways to Invest Money in 2025</h3>
+          <p>There are a lot of ways to invest money — high-yield savings accounts, CDs, bonds, funds and stocks are all options.</p>
+          <a href="https://www.nerdwallet.com/article/investing/the-best-investments-right-now" class="btn" target="_blank">Know More</a>
+        </div>
+        <div class="card"> -->
+          <!-- <img src="{{ url_for('static', filename='img/rec_blog1.jpg') }}" alt="imagess"> -->
+          <!-- <h3>Split the Bill, Avoid the Headache With These Credit Cards and Apps</h3>
+          <p>These services and features can simplify group expenses and reimbursement, whether it's a restaurant check, utility bill, rent, or a trip abroad.</p>
+          <a href="https://www.nerdwallet.com/article/credit-cards/split-the-bill-easily-with-these-credit-cards-apps" class="btn" target="_blank">Know More</a>
+        </div>
+        <div class="card"> -->
+          <!-- <img src="{{ url_for('static', filename='img/rec_blog1.jpg') }}" alt="imagess"> -->
+          <!-- <h3>Subscriptions Are Hard to Cancel and Easy to Forget — by Design</h3>
+          <p>'Click-to-Cancel' regulation aims to make ending subscriptions easier, but you can stay on top of your subscriptions even if the rule gets canceled</p>
+          <a href="https://www.nerdwallet.com/article/finance/subscriptions-are-hard-to-cancel-and-easy-to-forget-by-design" class="btn" target="_blank">Know More</a>
+        </div>
+        <div class="card">  -->
+          <!-- <img src="{{ url_for('static', filename='img/rec_blog1.jpg') }}" alt="imagess"> -->
+          <!-- <h3>Split the Bill, Avoid the Headache With These Credit Cards and Apps</h3>
+          <p>These services and features can simplify group expenses and reimbursement, whether it's a restaurant check, utility bill, rent, or a trip abroad</p>
+          <a href="https://www.nerdwallet.com/article/credit-cards/split-the-bill-easily-with-these-credit-cards-apps" class="btn" target="_blank">Know More</a>
+        </div>
+        <div class="card">  -->
+          <!-- <img src="{{ url_for('static', filename='img/rec_blog1.jpg') }}" alt="imagess"> -->
+           <!-- <h3>Subscriptions Are Hard to Cancel and Easy to Forget — by Design</h3>
+          <p>There are a lot of ways to invest money — high-yield savings accounts, CDs, bonds, funds and stocks are all options.</p>
+          <a href="https://www.nerdwallet.com/article/investing/the-best-investments-right-now" class="btn" target="_blank">Know More</a>
+        </div>  -->
+      </div>      
+      <button class="arrow right" id="right-arrow">&#9654;</button>
+    </div>
+  </div>
+</body>
+</html>

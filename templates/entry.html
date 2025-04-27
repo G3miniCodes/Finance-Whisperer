@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/entry.css') }}">
+    <script>
+        function showIncomeEntry() {
+            document.getElementById("income-form").style.display = "block";
+        }
+
+        function submitIncome() {
+            const income = document.getElementById("income-input").value;
+            if (income) {
+                document.getElementById("income-display").innerText = "Your Total Income: Rs." + income;
+                document.getElementById("income-form").style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><img src="{{ url_for('static', filename='img/entry_logo.png') }}" alt="Logo" class="logo-img"> Finance Whisperer</div>
+        <ul class="nav-links">
+            <li><a href="/" class="btn-nav">Home</a></li>
+            <li><a href="/rec" class="btn-nav">For You</a></li>
+            <li><a href="/entry" class="btn-nav">Entry</a></li>
+            <li><a href="/analysis" class="btn-nav">Analysis</a></li>
+            <li><a href="/login" class="btn-nav">Login</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="dashboard">
+            <h2>Total Income</h2>
+            <p id="income-display">To get started with your Finance Tracking Journey, enter your total income.</p>
+            <button onclick="showIncomeEntry()" style="float: right;">Enter</button>
+
+            <div id="income-form" style="display: none;">
+                <label for="income-input">Enter Income: </label>
+                <input type="number" id="income-input" placeholder="Enter your total income">
+                <button onclick="submitIncome()">Submit</button>
+            </div>
+        </section>
+
+        <section id="transactions">
+            <h2>Your Transactions</h2>
+            <p>Here you can see your recent transactions.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section id="reports">
+            <h2>Monthly Reports</h2>
+            <p>Analyze your spending habits with our reports.</p>
+            <button>View Reports</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Finance App. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Bills Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/monthly.css') }}">
+</head>
+<body>
+
+    <!-- Floating Form Button -->
+    <button id="open-form-btn">+ Add Bill</button>
+    <button class="submit-btn" onclick="location.href='/'">Submit</button>
+
+
+    <!-- Floating Form Container -->
+    <div id="floating-form" class="hidden">
+        <div class="form-header">
+            <h2>Add Monthly Bill</h2>
+            <button id="close-form-btn">&times;</button>
+        </div>
+        <form id="bill-form">
+            <label for="bill-name">Bill Name</label>
+            <input type="text" id="bill-name" placeholder="Enter bill name" required>
+
+            <label for="due-date">Due Date</label>
+            <input type="date" id="due-date" required>
+
+            <label for="amount">Amount (Rs.)</label>
+            <input type="number" id="amount" placeholder="Enter amount" required>
+
+            <button type="submit">Add Bill</button>
+        </form>
+    </div>
+
+    <!-- List of Added Bills -->
+    <div class="bill-list-container">
+        <h2>Monthly Bills</h2>
+        <ul id="bill-list"></ul>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/monthly.js') }}"></script>
+</body>
+</html>
