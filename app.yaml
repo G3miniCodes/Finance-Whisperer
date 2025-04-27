@@ -1,0 +1,13 @@
+runtime: python39  # This tells App Engine to use Python 3.9 runtime
+entrypoint: gunicorn -b :$PORT app:app  # Command to start your app (adjust based on your app's entry point)
+
+instance_class: F2  # Optional, can adjust for more resources
+
+env_variables:
+  SOME_VARIABLE: "value"  # Example for adding environment variables (optional)
+
+handlers:
+  - url: /static
+    static_dir: static/  # Serve static files from 'static' directory
+  - url: /.*
+    script: auto  # Automatically direct requests to your app

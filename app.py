@@ -161,7 +161,6 @@ def add_expense():
                    (session['user_id'], amount, date, category))
     conn.commit()
     conn.close()
-    https://github.com/G3miniCodes/Finance-Whisperer.git
     return redirect('/analysis')
 
 # UPLOAD_FOLDER = "static/uploads"
