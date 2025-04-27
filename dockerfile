@@ -1,20 +1,18 @@
-# Use an official Python runtime as a parent image
 FROM python:3.9-slim
 
-# Set the working directory inside the container
+# Install Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+# Set working directory
 WORKDIR /app
 
-# Copy the requirements.txt file into the container
+# Copy requirements file and install dependencies
 COPY requirements.txt .
-
-# Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of your application code into the container
+# Copy the rest of your application code
 COPY . .
 
-# Make port 5000 available to the world outside this container
-EXPOSE 5000
-
-# Define the command to run your application
+# Set the command to run the app
 CMD ["python", "app.py"]
